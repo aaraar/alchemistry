@@ -1,0 +1,45 @@
+@import '_vendors/font-awesome/fontawesome';
+@import '_vendors/font-awesome/solid';
+@import '_vendors/font-awesome/brands';
+
+@import 'base/minireset';
+
+$primary-background-color: #D1E5E1;
+
+body {
+  background-color: $primary-background-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vH;
+}
+
+img {
+  margin-bottom: 3rem;
+}
+
+h1, p {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.user {
+  @include fa-icon;
+  @extend .fas;
+
+  &:before {
+    content: fa-content($fa-var-user);
+  }
+}
+
+.twitter {
+  @include fa-icon;
+  @extend .fab;
+
+  &:before {
+    content: fa-content($fa-var-twitter);
+  }
+}
