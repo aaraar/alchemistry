@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Dating app for DND players",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.4"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
@@ -30,7 +32,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "start": "webpack-dev-server --mode development"
+    "start:dev": "webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
