@@ -1,51 +1,45 @@
 {
   "name": "alchemistry",
   "version": "1.0.0",
-  "description": "Dating app for DnD players",
+  "description": "Dating app for DND players",
   "main": "index.js",
-  "scripts": {
-    "start": "gulp",
-    "dev": "gulp dev",
-    "export": "gulp export"
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "autoprefixer": "^9.5.1",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^2.0.2",
+    "copy-webpack-plugin": "^5.0.3",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-merge": "^4.2.1"
   },
-  "author": "Bas de Greeuw",
-  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "start": "webpack-dev-server --mode development"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aaraar/alchemistry"
+    "url": "git+https://github.com/aaraar/alchemistry.git"
   },
-  "devDependencies": {
-    "autoprefixer": "^9.1.3",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "browser-sync": "^2.24.6",
-    "del": "^3.0.0",
-    "eslint": "^5.2.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "gulp": "^4.0.0",
-    "gulp-babel": "^7.0.1",
-    "gulp-htmlmin": "^4.0.0",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.1",
-    "gulp-zip": "^4.2.0",
-    "imagemin-gifsicle": "^5.2.0",
-    "imagemin-jpeg-recompress": "^5.1.0",
-    "imagemin-jpegtran": "^5.0.2",
-    "imagemin-optipng": "^5.2.1",
-    "imagemin-pngquant": "^6.0.0",
-    "imagemin-svgo": "^7.0.0",
-    "postcss-uncss": "^0.16.1",
-    "pump": "^3.0.0",
-    "through2": "^2.0.3",
-    "uncss": "^0.16.2",
-    "vinyl-named": "^1.1.0",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-stream": "^5.1.1"
+  "author": "Bas de Greeuw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaraar/alchemistry/issues"
   },
-  "dependencies": {}
+  "homepage": "https://github.com/aaraar/alchemistry#readme"
 }

@@ -1,1 +1,0 @@
-# Gulp 4 + Webpack 4 + Babel + BrowserSync + Font Awesome 5 from https://github.com/IamManchanda/gulp-webpack
