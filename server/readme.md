@@ -1,2 +1,2 @@
-help [#help][help]  
-[help]: ../readme.md#help
+[feature] help ([#help][help])  
+[help]: (../readme.md#help)
