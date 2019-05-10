@@ -1,1 +1,1 @@
-[a relative link](../readme#help.md)
+[a relative link](../readme#help.md/)
