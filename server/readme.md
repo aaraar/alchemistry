@@ -1,2 +1,1 @@
-[feature] help ([#help][help])  
-[help]: (../readme.md#help)
+[a relative link](../readme#help.md)
