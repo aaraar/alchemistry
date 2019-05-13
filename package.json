@@ -48,7 +48,7 @@
     "url": "git+https://github.com/aaraar/alchemistry.git"
   },
   "author": "Bas de Greeuw",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/aaraar/alchemistry/issues"
   },
