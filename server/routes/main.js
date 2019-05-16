@@ -3,16 +3,24 @@ import mongodb from 'mongodb';
 
 const router = express.Router();
 
+router
+.get('/', onHome)
+.get('/about', onAbout)
+.get('/login', onLogin)
 
-router.get('/', (req, res) => {
-res.send('home');
-});
-router.get('/about', (req, res) => {
-res.send('about');
-});
-router.get('/login', (req, res) => {
-res.send('login');
-});
+router.use(function (req, res, next) {
+    res.status(404).send("Sorry can't find that!")
+})
+
+function onHome(req, res) {
+    res.send('home');
+}
+function onAbout(req, res) {
+    res.send('about');
+}
+function onLogin(req, res) {
+    res.send('profile');
+}
 
 
 export default router;

@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/', mainRoutes)
 app.use('/api/profiles', profiles);
-app.use('/static', express.static('dist'))
+app.use('/static', express.static('dist/static'));
 
 
 app.listen(PORT, () =>

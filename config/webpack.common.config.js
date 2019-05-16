@@ -3,13 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin   = require('clean-webpack-plugin');
+const webpack = require('webpack');
+
 
 module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].[chunkhash].js'
+        path: path.resolve(__dirname, '../dist/static'),
+        filename: '[name].js'
     },
     resolve: {
         extensions: ['.js']
@@ -46,18 +48,30 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                       name: '[name].[ext]',
-                      outputPath: 'assets/images'
+                      outputPath: 'static/assets/images'
                     }
                   }
                 ]
+            },
+            { 
+                test: /\.handlebars$/,
+                loader: "handlebars-loader",
+                options: {
+                    outputPath: 'view/'
+                }
             },
         ]
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+              handlebarsLoader: {}
+            }
+          }),
         new HtmlWebpackPlugin({
             title: 'Alchemistry',
-            template: './src/index.html',
+            template: './src/view/index.handlebars',
             inject: true,
             minify: {
                 removeComments: true,
@@ -65,11 +79,16 @@ module.exports = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: 'style.[chunkhash].css'
+            to: 'static',
+            filename: 'style.css'
            }),
         new CopyWebpackPlugin([{
             from:'./src/assets/images',
              to:'assets/images'
-          }])
+          }]),
+        new CopyWebpackPlugin([{
+        from:'./src/view',
+        to:'../view'
+        }])
     ]
 };
