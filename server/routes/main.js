@@ -1,8 +1,9 @@
 import express from 'express';
 import mongodb from 'mongodb';
+import expressHbs from 'express-handlebars';
 
 const router = express.Router();
-
+router.use('/static', express.static('dist/static'));
 router
 .get('/', onHome)
 .get('/about', onAbout)
@@ -13,9 +14,9 @@ router.use(function (req, res, next) {
 })
 
 function onHome(req, res) {
-    res.send('home');
+    res.render('home', {data: "hello world"});
 }
-function onAbout(req, res) {
+function onAbout(req, res) {n
     res.send('about');
 }
 function onLogin(req, res) {

@@ -54,7 +54,7 @@ module.exports = {
                 ]
             },
             { 
-                test: /\.handlebars$/,
+                test: /\.hbs$/,
                 loader: "handlebars-loader",
                 options: {
                     outputPath: 'view/'
@@ -69,15 +69,15 @@ module.exports = {
               handlebarsLoader: {}
             }
           }),
-        new HtmlWebpackPlugin({
-            title: 'Alchemistry',
-            template: './src/view/index.handlebars',
-            inject: true,
-            minify: {
-                removeComments: true,
-                collapseWhitespace: false
-            }
-        }),
+        // new HtmlWebpackPlugin({
+        //     title: 'Alchemistry',
+        //     template: './src/view/index.handlebars',
+        //     inject: true,
+        //     minify: {
+        //         removeComments: true,
+        //         collapseWhitespace: false
+        //     }
+        // }),
         new MiniCssExtractPlugin({
             to: 'static',
             filename: 'style.css'
