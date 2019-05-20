@@ -6,6 +6,8 @@ const router = express.Router();
 router.use('/static', express.static('dist/static'));
 router
 .get('/', onHome)
+.post('/add', onAdd)
+.get('/add', onAdd)
 .get('/about', onAbout)
 .get('/login', onLogin)
 
@@ -15,6 +17,9 @@ router.use(function (req, res, next) {
 
 function onHome(req, res) {
     res.render('home', {data: "hello world"});
+}
+function onAdd(req, res) {
+    res.render('add');
 }
 function onAbout(req, res) {n
     res.send('about');
