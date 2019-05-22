@@ -1,0 +1,55 @@
+.profile {
+    display: grid;
+    background-color: $succes-color;
+    grid-template-columns: 1fr;
+    border: black 1px solid;
+    border-radius: 0.3em;
+    &-header, &-body {
+        display: grid;
+    }
+    &-header {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        background-color: darken($color: $succes-color, $amount: 10);
+        &-image {
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            background-position: center center;
+            background-size: cover;
+            width: 10em;
+            height: 10em;
+            object-fit: cover;
+            margin: 0.5em auto;
+        }
+        &-stats {
+            margin: auto;
+            &-name {
+                font-size: 2em;
+            }
+            &-name, &-class, &-background {
+                margin: 0 auto;
+            }
+        }
+    }
+    &-body {
+        grid-template-columns: 1fr 1fr;
+        padding: 0 1em;
+        &-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 2.5em 2em;
+            &--large {
+                grid-column-start: 1;
+                grid-column-end: 3;
+                margin: 0;
+                .data-text {
+                    border: 1px black solid;
+                    width: 100%;
+                    min-height: 5em;
+                    padding: 0.4em;
+                    border-radius: 0.3em;
+                }
+            }
+        }
+    }
+}

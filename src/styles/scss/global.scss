@@ -1,6 +1,7 @@
 // Fonts --------------------------
 // Families
 $main-font: bookmania, serif;
+$data-font: ff-scala-sans-pro, sans-serif; 
 $h1-font: modesto-condensed, serif;
 $h2-font: mrs-eaves, serif;
 $h3-font: mrs-eaves, serif;
@@ -10,6 +11,13 @@ $min_width: 320px;
 $max_width: 1200px;
 $min_font: 16px;
 $max_font: 24px;
+
+// Colors ------------------------
+$primary-color: #925259; 
+$secondary-color: #1E2634;
+$succes-color: #F6E693;
+$warning-color: #F3B76D;
+$error-color: #ED8863;
 
 html {
   @include fluid-type($min_width, $max_width, $min_font, $max_font);
@@ -41,3 +49,14 @@ h3 {
 h4 {
     font-family: $h4-font;
 }
+.data-text {
+    font-family: $data-font;
+}
+
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  

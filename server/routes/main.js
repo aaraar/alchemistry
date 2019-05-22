@@ -7,6 +7,7 @@ router.use('/static', express.static('dist/static'));
 router
 .get('/', onHome)
 .post('/add', onAdd)
+.get('/profile', onProfile)
 .get('/add', onAdd)
 .get('/about', onAbout)
 .get('/login', onLogin)
@@ -20,6 +21,9 @@ function onHome(req, res) {
 }
 function onAdd(req, res) {
     res.render('add');
+}
+function onProfile(req, res) {
+    res.render('profile');
 }
 function onAbout(req, res) {n
     res.send('about');
