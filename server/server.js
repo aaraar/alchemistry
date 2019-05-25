@@ -15,6 +15,7 @@ const PORT = process.env.PORT;
 // middleware
 app
   .use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.json())
   .use(cors())
   .use("/static", express.static("dist/static"))
   .use("/", mainRoutes)
