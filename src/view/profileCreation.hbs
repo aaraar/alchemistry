@@ -1,0 +1,30 @@
+<h1>Create a profile</h1>
+<form action="/users/create" method="post">
+<label>Name:<input name="name" type="text"></label>
+<label>Adress:<input name="background" type="text"></label>
+<label>Sex:
+    <select name="dndClass">
+        <option value="male">   Male</option>
+        <option value="female"> Female</option>
+</select></label>
+<label>Date of birth:<input name="bday" type="date" max="2001-12-31"></label>
+<label>Favorite DnD edition: <select name="faction">
+    <option value="3e">         3rd Edition</option>
+    <option value="3.5e">       3.5 Edition</option>
+    <option value="4e">         4th Edition</option>
+    <option value="5e">         5th Edition</option>
+    <option value="pathfinder"> Pathfinder</option>
+</select></label>
+<label>
+    Interest:
+    <select name="interest">
+        <option value="male">   Male</option>
+        <option value="female"> Female</option>
+    </select>
+</label>
+<label><input name="traits" type="text"></label>
+<label><input name="ideals" type="text"></label>
+<label><input name="bonds" type="text"></label>
+<label><input name="flaws" type="text"></label>
+<input type="submit" value="Submit">
+</form>
