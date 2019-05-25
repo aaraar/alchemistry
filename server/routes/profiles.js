@@ -1,7 +1,6 @@
 import moment from "moment";
 import slug from "slug";
 import profiles from "../../db/profiles.json";
-
 // const profileObj = {
 //   profiles: [
 //     {
@@ -56,9 +55,10 @@ export function onCreateProfilePost(req, res) {
 }
 
 export function onProfileAll(req, res) {
-  profiles.forEach(profile => {
+  profileList.forEach(profile => {
     profile.level = moment().diff(profile.bday, "years");
     profile.race = "Human";
+    console.log(profile);
   });
   res.render("profiles", profiles);
 }
