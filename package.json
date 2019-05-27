@@ -47,7 +47,7 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development webpack --mode development",
 		"build": "cross-env NODE_ENV=production webpack --mode production",
-		"start": "server/server.js",
+		"start": "node server/server.js",
 		"start:local": "nodemon --exec babel-node server/server.js",
 		"start:dev": "webpack-dev-server --mode development"
 	},
