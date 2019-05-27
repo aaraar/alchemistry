@@ -11,6 +11,7 @@ import mainRoutes from "./routes/main";
 // vars
 const app = express();
 let PORT = process.env.PORT;
+// for heroku
 if (PORT == null || PORT == "") {
 	PORT = 8000;
 }
@@ -20,6 +21,7 @@ app
 	.use(bodyParser.json())
 	.use(cors())
 	.use("/static", express.static("dist/static"))
+	.use("/upload", express.static("upload"))
 	.use("/", mainRoutes)
 	.engine(
 		".hbs",

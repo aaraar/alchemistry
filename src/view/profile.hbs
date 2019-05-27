@@ -1,6 +1,10 @@
 <article class="profile">
     <section class="profile-header">
-        <img class="profile-header-image" src="/static/assets/images/1-1.jpg"></img>
+        {{#if avatar}}
+            <img class="profile-header-image" src="/upload/{{avatar}}"></img>
+        {{else}}
+            <img class="profile-header-image" src="/static/assets/images/1-1.jpg"></img>
+        {{/if}}
         <section class="profile-header-stats">
             <h1 class="profile-header-stats-name">{{name}}</h1>
             <h2 class="profile-header-stats-class">{{dndClass}}, {{level}}

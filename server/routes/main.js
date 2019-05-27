@@ -1,4 +1,5 @@
 import express from "express";
+import multer from "multer";
 import {
 	onCreateProfile,
 	onProfileAll,
@@ -6,6 +7,7 @@ import {
 	onCreateProfilePost
 } from "./profiles";
 
+const upload = multer({ dest: "upload/" });
 const router = express.Router();
 
 router
@@ -14,7 +16,7 @@ router
 	.get("/login", onLogin)
 	.get("/user/:id", onProfile)
 	.get("/users/create", onCreateProfile)
-	.post("/users/add", onCreateProfilePost)
+	.post("/users/create", upload.single("avatar"), onCreateProfilePost)
 	.get("/users", onProfileAll);
 
 router.use(function(req, res, next) {

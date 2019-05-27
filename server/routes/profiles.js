@@ -1,20 +1,21 @@
 import moment from "moment";
 import slug from "slug";
-import profiles from "../../db/profiles.json";
 import mongo from "mongodb";
-const MongoClient = mongo.MongoClient;
+import multer from "multer";
 
-var db = "db";
+const MongoClient = mongo.MongoClient;
+const upload = multer({ dest: "upload/" });
 const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
+var db = "null";
 
 class User {
 	constructor(userObj) {
-		for (var attributeName in userObj) {
+		for (let attributeName in userObj) {
 			this[attributeName] = userObj[attributeName];
 		}
 	}
 	merge(object) {
-		for (var attributeName in object) {
+		for (let attributeName in object) {
 			this[attributeName] = object[attributeName];
 		}
 		return this;
@@ -37,10 +38,11 @@ export function onCreateProfilePost(req, res) {
 	const id = slug(req.body.name).toLowerCase();
 	let newUser = new User(req.body);
 	newUser.id = id;
-	db.collection("users").insertOne(newUser, (err, res) => {
+	newUser.avatar = req.file ? req.file.filename : null;
+	db.collection("users").insertOne(newUser, (err, data) => {
 		if (err) throw err;
 		console.log("1 new user added");
-		res.redirect(`/user/${res.insertedId}`);
+		res.redirect(`/user/${data.insertedId}`);
 	});
 }
 

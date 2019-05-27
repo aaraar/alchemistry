@@ -1,6 +1,8 @@
 <h1>Create a profile</h1>
-<form action="/users/add" method="post">
+<form action="/users/create" method="post" enctype="multipart/form-data" class="profile-form">
+<fieldset>
 <label>Name:<input name="name" type="text"></label>
+<label>Profile picture:<input name=avatar type=file accept=image/*></label>
 <label>Adress:<input name="background" type="text"></label>
 <label>Sex:
     <select name="dndClass">
@@ -8,6 +10,8 @@
         <option value="female"> Female</option>
 </select></label>
 <label>Date of birth:<input name="bday" type="date" max="2001-12-31"></label>
+</fieldset>
+<fieldset>
 <label>Favorite DnD edition: <select name="faction">
     <option value="3e">         3rd Edition</option>
     <option value="3.5e">       3.5 Edition</option>
@@ -22,9 +26,12 @@
         <option value="female"> Female</option>
     </select>
 </label>
-<label>Traits:<input name="traits" type="text"></label>
-<label>Ideals:<input name="ideals" type="text"></label>
-<label>Bonds:<input name="bonds" type="text"></label>
-<label>Flaws:<input name="flaws" type="text"></label>
+<label class="profile-form-field--large">Personality traits:<input name="traits" type="text"></label>
+<label class="profile-form-field--large">Ideals:<input name="ideals" type="text"></label>
+<label class="profile-form-field--large">Bonds:<input name="bonds" type="text"></label>
+<label class="profile-form-field--large">Flaws:<input name="flaws" type="text"></label>
+</fieldset>
+<fieldset>
 <input type="submit" value="Submit">
+</fieldset>
 </form>
