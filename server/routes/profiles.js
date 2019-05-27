@@ -3,7 +3,7 @@ import slug from "slug";
 import profiles from "../../db/profiles.json";
 import mongo from "mongodb";
 let db = null;
-const url = "mongodb://" + process.env.DB_HOST + ":" + process.env.DB_PORT;
+const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
 
 mongo.MongoClient.connect(url, function(err, client) {
   if (err) {
@@ -20,7 +20,7 @@ export function onCreateProfile(req, res) {
 export function onCreateProfilePost(req, res) {
   const id = slug(req.body.name).toLowerCase();
   profiles.push({
-    id: id,
+    id,
     name: req.body.name,
     background: req.body.background,
     dndClass: req.body.dndClass,
@@ -96,6 +96,10 @@ export function onProfile(req, res, next) {
       profile.experience =
         365 -
         moment(profile.bday.slice(5)).diff(moment().format("MM-DD"), "days");
+      profile.experience =
+        profile.experience >= 365
+          ? profile.experience - 365
+          : profile.experience;
 
       res.render("profile", profile);
     }
