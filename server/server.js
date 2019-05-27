@@ -10,22 +10,24 @@ import mainRoutes from "./routes/main";
 
 // vars
 const app = express();
-const PORT = process.env.PORT;
-
+let PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+	PORT = 8000;
+}
 // middleware
 app
-  .use(bodyParser.urlencoded({ extended: true }))
-  .use(bodyParser.json())
-  .use(cors())
-  .use("/static", express.static("dist/static"))
-  .use("/", mainRoutes)
-  .engine(
-    ".hbs",
-    expHbs({
-      extname: ".hbs",
-      defaultLayout: "main"
-    })
-  )
-  .set("view engine", ".hbs")
-  .set("views", "dist/view");
+	.use(bodyParser.urlencoded({ extended: true }))
+	.use(bodyParser.json())
+	.use(cors())
+	.use("/static", express.static("dist/static"))
+	.use("/", mainRoutes)
+	.engine(
+		".hbs",
+		expHbs({
+			extname: ".hbs",
+			defaultLayout: "main"
+		})
+	)
+	.set("view engine", ".hbs")
+	.set("views", "dist/view");
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
