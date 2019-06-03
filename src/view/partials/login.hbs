@@ -1,0 +1,11 @@
+{{#if user}}
+<form action="/logout" method="POST">
+<button>log-out {{user}}</button></form>
+{{else}}
+  <form action="/" method="POST">
+    <label>Username<input type="text" name="username"></label>
+    <label>Password<input type="password" name="password" minlength="8" maxlength="20"></label>
+    <input type="submit" value="login">
+    </form>
+{{/if}}
+

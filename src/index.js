@@ -1,8 +1,29 @@
-import './style.css';
-import './styles/main.scss';
+import "./style.css";
+import "./styles/main.scss";
 
+const remove = document.getElementById("remove_acc");
 
-let header = new Header();
-let firstHeading = header.getFirstHeading();
+// from lecture
+if (remove) {
+	remove.addEventListener("click", onremove);
+}
 
-console.log(firstHeading);
+function onremove(ev) {
+	const node = ev.target;
+	const id = node.dataset.id;
+	fetch(`/user/${id}`, { method: "delete" })
+		.then(onresponse)
+		.then(onload, onfail);
+
+	function onresponse(res) {
+		return res.json();
+	}
+
+	function onload() {
+		window.location = "/users";
+	}
+
+	function onfail() {
+		throw new Error("Could not delete!");
+	}
+}

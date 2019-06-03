@@ -12,6 +12,11 @@
             <h3 class="profile-header-stats-background">{{race}}, {{background}}</h3>
         </section>
     </section>
+    {{#if user}}
+    <form action="/profile"></form>
+        <button data-id={{{_id}}} id="remove_acc">Remove account</button>
+    {{/if}}
+
     <section class="profile-body">
         <section class="profile-body-item">
             <h2>Player name:</h2>

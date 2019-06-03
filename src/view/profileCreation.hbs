@@ -1,7 +1,9 @@
 <h1>Create a profile</h1>
 <form action="/users/create" method="post" enctype="multipart/form-data" class="profile-form">
 <fieldset>
-<label>Name:<input name="name" type="text"></label>
+<label>Username: <input type="text" name="username" required></label>
+<label>Password: <input type="password" name="password" minlength="8" maxlength="20" required></label>
+<label>Name:<input name="name" type="text" required></label>
 <label>Profile picture:<input name=avatar type=file accept=image/*></label>
 <label>Adress:<input name="background" type="text"></label>
 <label>Sex:

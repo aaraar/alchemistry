@@ -4,18 +4,24 @@ import {
 	onCreateProfile,
 	onProfileAll,
 	onProfile,
-	onCreateProfilePost
+	onCreateProfilePost,
+	onRemove,
+	onLogin,
+	onLogout
 } from "./profiles";
 
 const upload = multer({ dest: "upload/" });
 const router = express.Router();
-
+var sess;
 router
 	.get("/", onHome)
 	.get("/about", onAbout)
-	.get("/login", onLogin)
+	.get("users/login", onLogin)
 	.get("/user/:id", onProfile)
+	.delete("/user/:id", onRemove)
 	.get("/users/create", onCreateProfile)
+	.post("/", onLogin)
+	.post("/logout", onLogout)
 	.post("/users/create", upload.single("avatar"), onCreateProfilePost)
 	.get("/users", onProfileAll);
 
@@ -24,15 +30,13 @@ router.use(function(req, res, next) {
 });
 
 function onHome(req, res) {
+	sess = req.session;
 	res.render("home", { data: "hello world" });
 }
 
 function onAbout(req, res) {
-	n;
+	sess = req.session;
 	res.send("about");
-}
-function onLogin(req, res) {
-	res.send("profile");
 }
 
 export default router;
