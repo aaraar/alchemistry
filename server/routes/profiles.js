@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const multer = require("multer");
 const fetch = require("node-fetch");
 
-const url = `mongodb+srv://${process.env.DB_ONLINE_HOST}:${
+const url = `mongodb://${process.env.DB_ONLINE_HOST}:${
 	process.env.DB_ONLINE_PASSWORD
 }@${process.env.DB_ONLINE_URI}/test?retryWrites=true&w=majority";`;
 const MongoClient = mongo.MongoClient(url, { useNewUrlParser: true });
