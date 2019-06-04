@@ -7,12 +7,11 @@ const expHbs = require("express-handlebars");
 const session = require("express-session");
 
 // routes
-import mainRoutes from "./routes/main";
+const mainRoutes = require("./routes/main");
 
 // vars
 const app = express();
 let PORT = process.env.PORT;
-var sess;
 // for heroku
 if (PORT == null || PORT == "") {
 	PORT = 8000;
