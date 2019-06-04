@@ -22,8 +22,10 @@
 		"slug": "^1.1.0"
 	},
 	"devDependencies": {
+		"@babel/cli": "^7.4.4",
 		"@babel/core": "^7.4.5",
 		"@babel/node": "^7.4.5",
+		"@babel/parser": "^7.4.5",
 		"@babel/preset-env": "^7.4.5",
 		"autoprefixer": "^9.5.1",
 		"babel-loader": "^8.0.6",
@@ -50,9 +52,12 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development webpack --mode development",
 		"build": "cross-env NODE_ENV=production webpack --mode production",
-		"start": "babel-node server/server.js",
+		"start": "npm run build && node server/server.js",
 		"start:local": "nodemon --exec babel-node server/server.js",
-		"start:dev": "webpack-dev-server --mode development"
+		"start:dev": "webpack-dev-server --mode development",
+		"clean": "rm -rf build && mkdir build",
+		"build-babel": "babel ./server/server.js",
+		"build-heroku": "npm run clean && npm run build-babel"
 	},
 	"engines": {
 		"node": "^8.0.0",

@@ -1,10 +1,10 @@
 // deps
-require ("dotenv/config");
+require("dotenv/config");
 const cors = require("cors");
-const express = require ("express");
-const bodyParser = require ("body-parser")const;
-const expHbs = require ("express-handlebars");
-const session = require ("express-session");
+const express = require("express");
+const bodyParser = require("body-parser");
+const expHbs = require("express-handlebars");
+const session = require("express-session");
 
 // routes
 import mainRoutes from "./routes/main";
