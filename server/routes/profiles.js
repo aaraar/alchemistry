@@ -4,8 +4,11 @@ const mongo = require("mongodb");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const fetch = require("node-fetch");
-const MongoClient = mongo.MongoClient;
-const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
+
+const url = `mongodb+srv://${process.env.DB_ONLINE_HOST}:${
+	process.env.DB_ONLINE_PASSWORD
+}@${process.env.DB_ONLINE_URI}/test?retryWrites=true&w=majority";`;
+const MongoClient = mongo.MongoClient(url, { useNewUrlParser: true });
 var db = "null";
 
 class User {
@@ -22,7 +25,7 @@ class User {
 	}
 }
 
-MongoClient.connect(url, function(err, client) {
+MongoClient.connect((err, client) => {
 	if (err) {
 		throw err;
 	}
@@ -39,7 +42,6 @@ function onCreateProfilePost(req, res) {
 	let newUser = new User(req.body);
 	const username = req.body.username;
 	var password = req.body.password;
-	console.log(password);
 	const min = 8;
 	const max = 160;
 
