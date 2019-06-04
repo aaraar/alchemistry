@@ -40,4 +40,4 @@ function onAbout(req, res) {
 	res.send("about");
 }
 
-export default router;
+module.exports = router;

@@ -30,11 +30,11 @@ MongoClient.connect(url, function(err, client) {
 	db = client.db(process.env.DB_NAME);
 });
 
-export function onCreateProfile(req, res) {
+function onCreateProfile(req, res) {
 	res.render("profileCreation");
 }
 
-export function onCreateProfilePost(req, res) {
+function onCreateProfilePost(req, res) {
 	const id = slug(req.body.username).toLowerCase();
 	let newUser = new User(req.body);
 	const username = req.body.username;
@@ -88,7 +88,7 @@ export function onCreateProfilePost(req, res) {
 	}
 }
 
-export function onAddCharacter(req, res) {
+function onAddCharacter(req, res) {
 	const id = req.session.userObj._id;
 	const username = req.session.user;
 	let newChar = new User(req.body);
@@ -111,7 +111,7 @@ export function onAddCharacter(req, res) {
 	);
 }
 
-export function onProfileAll(req, res, next) {
+function onProfileAll(req, res, next) {
 	db.collection("users")
 		.find()
 		.toArray(done);
@@ -131,7 +131,7 @@ export function onProfileAll(req, res, next) {
 	}
 }
 
-export function onProfile(req, res, next) {
+function onProfile(req, res, next) {
 	const id = req.params.id;
 	db.collection("users").findOne(
 		{
@@ -189,7 +189,7 @@ export function onProfile(req, res, next) {
 	}
 }
 
-export function onRemove(req, res, next) {
+function onRemove(req, res, next) {
 	const id = req.params.id;
 
 	db.collection("users").deleteOne(id, done);
@@ -201,7 +201,7 @@ export function onRemove(req, res, next) {
 		}
 	}
 }
-export function onLogin(req, res) {
+function onLogin(req, res) {
 	const password = req.body.password;
 	db.collection("users").findOne(
 		{
@@ -244,7 +244,7 @@ export function onLogin(req, res) {
 		}
 	);
 }
-export function onLogout(req, res) {
+function onLogout(req, res) {
 	req.session.destroy(err => {
 		if (err) {
 			return console.log(err);
@@ -253,7 +253,7 @@ export function onLogout(req, res) {
 		res.redirect(backURL);
 	});
 }
-export function onDndData(req, res) {
+function onDndData(req, res) {
 	getDndData().then(data => res.send(data));
 }
 async function getDndData() {
@@ -265,3 +265,15 @@ async function getDndData() {
 
 	return data;
 }
+
+module.exports = {
+	onCreateProfile,
+	onProfileAll,
+	onProfile,
+	onCreateProfilePost,
+	onRemove,
+	onLogin,
+	onLogout,
+	onDndData,
+	onAddCharacter
+};
