@@ -1,10 +1,10 @@
 // deps
-import "dotenv/config";
-import cors from "cors";
-import express from "express";
-import bodyParser from "body-parser";
-import expHbs from "express-handlebars";
-import session from "express-session";
+require ("dotenv/config");
+const cors = require("cors");
+const express = require ("express");
+const bodyParser = require ("body-parser")const;
+const expHbs = require ("express-handlebars");
+const session = require ("express-session");
 
 // routes
 import mainRoutes from "./routes/main";
@@ -23,7 +23,7 @@ app
 		session({
 			path: "/",
 			secret: process.env.SESSION_SECRET,
-			resave: false,
+			resave: true,
 			saveUninitialized: true
 			// cookie: { secure: true }
 		})

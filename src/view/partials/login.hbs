@@ -4,7 +4,13 @@
 {{else}}
   <form action="/" method="POST">
     <label>Username<input type="text" name="username"></label>
+    {{#if userDidNotMatch}}
+        <p>Username not found!</p>
+    {{/if}}
     <label>Password<input type="password" name="password" minlength="8" maxlength="20"></label>
+    {{#if passDidNotMatch}}
+        <p>Username not found!</p>
+    {{/if}}
     <input type="submit" value="login">
     </form>
 {{/if}}

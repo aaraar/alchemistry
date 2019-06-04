@@ -1,8 +1,9 @@
-import moment from "moment";
-import slug from "slug";
-import mongo from "mongodb";
-import bcrypt from "bcrypt";
-import multer from "multer";
+const moment = require("moment");
+const slug = require("slug");
+const mongo = require("mongodb");
+const bcrypt = require("bcrypt");
+const multer = require("multer");
+const fetch = require("node-fetch");
 const MongoClient = mongo.MongoClient;
 const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
 var db = "null";
@@ -34,7 +35,7 @@ export function onCreateProfile(req, res) {
 }
 
 export function onCreateProfilePost(req, res) {
-	const id = slug(req.body.name).toLowerCase();
+	const id = slug(req.body.username).toLowerCase();
 	let newUser = new User(req.body);
 	const username = req.body.username;
 	var password = req.body.password;
@@ -87,6 +88,29 @@ export function onCreateProfilePost(req, res) {
 	}
 }
 
+export function onAddCharacter(req, res) {
+	const id = req.session.userObj._id;
+	const username = req.session.user;
+	let newChar = new User(req.body);
+	console.log(id);
+	db.collection("users").findOne(
+		{ _id: new mongo.ObjectID(id) },
+		(err, data) => {
+			if (err) console.log(err);
+			const index = data.characters ? Object.keys(data.characters).length : 0;
+			db.collection("users").updateOne(
+				{ _id: { $eq: new mongo.ObjectID(id) } },
+				{ $addToSet: { characters: newChar } },
+				(err, data) => {
+					if (err) throw err;
+					console.log("update doc");
+					res.redirect(`/user/${username}`);
+				}
+			);
+		}
+	);
+}
+
 export function onProfileAll(req, res, next) {
 	db.collection("users")
 		.find()
@@ -102,7 +126,6 @@ export function onProfileAll(req, res, next) {
 				profile.race = "Human";
 			});
 			profiles.user = req.session.user;
-			console.log(profiles.user);
 			res.render("profiles", profiles);
 		}
 	}
@@ -112,7 +135,7 @@ export function onProfile(req, res, next) {
 	const id = req.params.id;
 	db.collection("users").findOne(
 		{
-			_id: new mongo.ObjectID(id)
+			username: id
 		},
 		done
 	);
@@ -124,7 +147,7 @@ export function onProfile(req, res, next) {
 			if (profile === null) {
 				res.status(404).send("Sorry can't find that!");
 			}
-			profile.level = moment().diff(profile.bday, "years");
+			if (profile.bday) profile.level = moment().diff(profile.bday, "years");
 			switch (profile.faction) {
 				case "5e":
 					profile.faction = "5th Edition";
@@ -156,9 +179,12 @@ export function onProfile(req, res, next) {
 				profile.experience >= 365
 					? profile.experience - 365
 					: profile.experience;
-			profile.user = req.session.user;
-			console.log(req.session.user);
-			res.render("profile", profile);
+			profile.user =
+				req.session.user === profile.username ? req.session.user : null;
+			getDndData().then(data => {
+				profile.dndData = data;
+				res.render("profile", profile);
+			});
 		}
 	}
 }
@@ -181,41 +207,42 @@ export function onLogin(req, res) {
 		{
 			username: req.body.username
 		},
-		done
+		(err, user) => {
+			if (err) {
+				console.log(err);
+				throw err;
+			} else if (user) {
+				bcrypt.compare(password, user.password, (err, response) => {
+					if (err) console.log(err);
+					else if (response) {
+						req.session.userDidNotMatch = false;
+						req.session.passDidNotMatch = false;
+						req.session.userObj = user;
+						req.session.user = req.body.username;
+						req.session.save(err => {
+							if (err) {
+								console.log(err);
+								throw err;
+							}
+						});
+						res.redirect(`/user/${req.body.username}`);
+					} else {
+						req.session.passDidNotMatch = true;
+						req.session.save(err => {
+							if (err) {
+								console.log(err);
+								throw err;
+							}
+						});
+						res.redirect("/");
+					}
+				});
+			} else {
+				req.session.userDidNotMatch = true;
+				res.redirect("/");
+			}
+		}
 	);
-	function done(err, user) {
-		if (err) {
-			console.log(err);
-			next(err);
-		}
-		console.log(user);
-		if (user) {
-			bcrypt.compare(password, user.password, (err, response) => {
-				if (err) console.log(err);
-				else if (response) {
-					req.session.userDidNotMatch = false;
-					req.session.passDidNotMatch = false;
-					req.session.user = req.body.username;
-					req.session.save(err => {
-						if (err) {
-							console.log(err);
-							next(err);
-						}
-					});
-					res.redirect(`/user/${user._id}`);
-				} else {
-					req.session.passDidNotMatch = true;
-					req.session.save(err => {
-						if (err) {
-							console.log(err);
-							next(err);
-						}
-					});
-					res.redirect("/");
-				}
-			});
-		}
-	}
 }
 export function onLogout(req, res) {
 	req.session.destroy(err => {
@@ -225,4 +252,16 @@ export function onLogout(req, res) {
 		const backURL = req.header("Referer") || "/";
 		res.redirect(backURL);
 	});
+}
+export function onDndData(req, res) {
+	getDndData().then(data => res.send(data));
+}
+async function getDndData() {
+	let classesCall = await fetch("http://dnd5eapi.co/api/classes");
+	let racesCall = await fetch("http://dnd5eapi.co/api/races");
+	let classes = await classesCall.json();
+	let races = await racesCall.json();
+	let data = { classes, races };
+
+	return data;
 }

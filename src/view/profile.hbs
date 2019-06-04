@@ -7,14 +7,14 @@
         {{/if}}
         <section class="profile-header-stats">
             <h1 class="profile-header-stats-name">{{name}}</h1>
-            <h2 class="profile-header-stats-class">{{dndClass}}, {{level}}
+            <h2 class="profile-header-stats-class">{{dndClass}}, {{#if level}}{{level}}{{/if}}
             </h2>
             <h3 class="profile-header-stats-background">{{race}}, {{background}}</h3>
         </section>
     </section>
     {{#if user}}
     <form action="/profile"></form>
-        <button data-id={{{_id}}} id="remove_acc">Remove account</button>
+        <button data-id={{{username}}} id="remove_acc">Remove account</button>
     {{/if}}
 
     <section class="profile-body">
@@ -64,3 +64,41 @@
         </section>
     </section>
 </article>
+{{#each characters}}
+    {{> character}}
+{{/each}}
+    {{#if user}}
+    <article class="profile add-character">
+        <form action="/user/{{username}}" method="post" class="profile-form">
+            <fieldset>
+                <label>Name:<input name="name" type="text" required></label>
+                <label>Background:<input name="background" type="text"></label>
+                <label>Race:
+                    <select name="race">
+                        {{#each dndData.races.results}}
+                        <option value="{{this.name}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </label>
+                <label>Class:
+                    <select name="dndClass">
+                        {{#each dndData.classes.results}}
+                            <option value="{{this.name}}">{{this.name}}</option>
+                        {{/each}}
+                </select></label>
+                <label>Level<input name="level" type="number"></label>
+                <label>Age<input name="age" type="number"></label>
+                </fieldset>
+                <fieldset>
+                <label>Faction: <input type="text" name="faction"></label>
+                <label class="profile-form-field--large">Personality traits:<input name="traits" type="text"></label>
+                <label class="profile-form-field--large">Ideals:<input name="ideals" type="text"></label>
+                <label class="profile-form-field--large">Bonds:<input name="bonds" type="text"></label>
+                <label class="profile-form-field--large">Flaws:<input name="flaws" type="text"></label>
+                </fieldset>
+                <fieldset>
+                <input type="submit" value="Submit">
+            </fieldset>
+        </form>
+    </article>
+    {{/if}}
