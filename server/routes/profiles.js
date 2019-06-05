@@ -194,9 +194,8 @@ function onRemove(req, res, next) {
 	const user = req.params.id;
 	const char = req.body.charName;
 	db.collection("users").updateOne(
-		{ $and: [{ username: { $eq: user } }, { name: { $eq: char } }] },
-		{ $unSet: { characters: char } },
-		{ writeConcern: { w: 0, j: false, wtimeout: 5000 } },
+		{ username: { $eq: user } },
+		{ $unset: { characters: [{ name: char }] } },
 		(err, data) => {
 			if (err) throw err;
 			console.log("update doc");
