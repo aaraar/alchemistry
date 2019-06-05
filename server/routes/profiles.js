@@ -77,7 +77,7 @@ function onCreateProfilePost(req, res) {
 									next(err);
 								}
 							});
-							res.redirect(`/user/${data.insertedId}`);
+							res.redirect(`/user/${id}`);
 						}
 					});
 				}
