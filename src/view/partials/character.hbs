@@ -3,6 +3,14 @@
             <h2>Name:</h2>
             <p class="data-text">{{name}}</p>
         </section>
+        {{#if @root.user}}
+        <section class="profile-body-item">
+            <form action="/user/{{@root.user}}/characterDelete" method="post">
+            <label>Type character name for confirmation:<input name="charName" type="text" value="{{name}}"></label>
+            <input type="submit" value="Delete Character">
+            </form>
+        </section>
+    {{/if}}
         <section class="profile-body-item">
             <h2>Background:</h2>
             <p class="data-text">{{background}}</p>

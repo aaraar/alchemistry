@@ -5,9 +5,7 @@ const bcrypt = require("bcrypt");
 const multer = require("multer");
 const fetch = require("node-fetch");
 
-const url = `mongodb+srv://${process.env.DB_ONLINE_HOST}:${
-	process.env.DB_ONLINE_PASSWORD
-}@hva-calum.azure.mongodb.net/test?retryWrites=true&w=majority";`;
+const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
 const MongoClient = mongo.MongoClient(url, { useNewUrlParser: true });
 var db = "null";
 
@@ -185,6 +183,7 @@ function onProfile(req, res, next) {
 				req.session.user === profile.username ? req.session.user : null;
 			getDndData().then(data => {
 				profile.dndData = data;
+				console.log(profile);
 				res.render("profile", profile);
 			});
 		}
@@ -192,16 +191,18 @@ function onProfile(req, res, next) {
 }
 
 function onRemove(req, res, next) {
-	const id = req.params.id;
-
-	db.collection("users").deleteOne(id, done);
-	function done(err) {
-		if (err) {
-			res.json({ status: "failed" });
-		} else {
-			res.json({ status: "ok" });
+	const user = req.params.id;
+	const char = req.body.charName;
+	db.collection("users").updateOne(
+		{ $and: [{ username: { $eq: user } }, { name: { $eq: char } }] },
+		{ $unSet: { characters: char } },
+		{ writeConcern: { w: 0, j: false, wtimeout: 5000 } },
+		(err, data) => {
+			if (err) throw err;
+			console.log("update doc");
+			res.redirect(`/user/${user}`);
 		}
-	}
+	);
 }
 function onLogin(req, res) {
 	const password = req.body.password;
