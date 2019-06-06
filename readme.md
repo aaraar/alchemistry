@@ -13,10 +13,10 @@ Alchemistry is a dating app for DnD players
 
 ## mongoDB scheme
 ```json
-{ \_id: xxxxxxxxxxxxxxxxx,  
-username: 'testaccount',  
-password: 'hashedPassword',  
-name: 'testaccount',  
+{ "\_id": "xxxxxxxxxxxxxxxxx",  
+"username": "testaccount",  
+"password": "hashedPassword",  
+"name": "testaccount",  
 background: '',  
 dndClass: 'male',  
 bday: 'Male',  
